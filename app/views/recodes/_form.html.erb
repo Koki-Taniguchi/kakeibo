@@ -1,0 +1,38 @@
+
+<%= form_with model: recode do |form| %>
+  <% if recode.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(recode.errors.count, "error") %> prohibited this recode from being saved:</h2>
+
+      <ul>
+      <% recode.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field p-2">
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field p-2">
+    <%= form.label :price %><br>
+    <%= form.number_field :price %>
+  </div>
+
+  <div class="field p-2">
+    <%= form.label :date %><br>
+    <%= form.date_select :date %>
+  </div>
+
+  <div class="field p-2">
+    <%= form.label :category %><br>
+    <%= form.select :category, Recode.categories %>
+  </div>
+
+  <div class="actions p-2">
+    <%= form.submit "Create recode", class: "btn btn-primary btn-block" %>
+  </div>
+<% end %>

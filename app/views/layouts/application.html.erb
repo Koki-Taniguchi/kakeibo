@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>家計簿.erb</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <header>
+        <div style="background-color: #ffcc00; height: 70px; padding-top: 12px; color: black;">
+          <ul class="nav justify-content-end">
+
+            <% if current_user %>
+
+              <li class="nav-item">
+                <%= link_to "Top", root_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "My page", user_path(current_user), class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Edit profile", edit_user_path(current_user), class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "nav-link" %>
+              </li>
+
+            <% else %>
+
+              <li class="nav-item">
+                <%= link_to "Top", root_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Log in", new_user_session_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Sign up", new_user_registration_path, class: "nav-link" %>
+              </li>
+
+            <% end %>
+
+          </ul>
+        </div>
+      </header>
+
+      <main>
+        <%= yield %>
+      </main>
+
+      <footer>
+        <div style="background-color: #ffcc00; text-align: center; height: 60px; padding-top: 17px;">
+          <p>© 2019 家計簿.erb</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

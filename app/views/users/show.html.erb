@@ -1,0 +1,170 @@
+<p id="notice" style="color: green; margin-left: 10px;"><%= flash[:notice] %></p>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-lg-3">
+      <h2>New recodes</h2>
+      <%= render 'recodes/form', recode: @recode %>
+    </div>
+
+    <div class="col-lg-9">
+      <h2>Recodes</h2>
+
+      <div class="p-3">
+
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a href="#tab1" class="nav-link active" data-toggle="tab">All</a>
+          </li>
+          <li class="nav-item">
+            <a href="#tab2" class="nav-link" data-toggle="tab">Year</a>
+          </li>
+          <li class="nav-item">
+            <a href="#tab3" class="nav-link" data-toggle="tab">Month</a>
+          </li>
+          <li class="nav-item">
+            <a href="#tab4" class="nav-link" data-toggle="tab">Week</a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="tab1" class="tab-pane active container">
+
+            <div class="search-box p-3">
+              <%= form_tag(user_path(current_user),:method => 'get') do %>
+                <%= label_tag :name_search %>
+                <span style="display: inline-block; width: 123px;"></span>
+                <%= label_tag :date_search %><br>
+                <%= text_field_tag :search %>
+                <span style="display: inline-block; width: 30px;"></span>
+                <%= date_field_tag :start %>
+                <%= label_tag :~ %>
+                <%= date_field_tag :last %>
+                <%= submit_tag 'Search', :name => nil, class: "btn btn-primary" %>
+              <% end %>
+            </div>
+
+            <table style="width: 90%;">
+              <thead>
+                <tr class="row" style="margin-bottom: 7px;">
+                  <th class="col-lg-2">Name</th>
+                  <th class="col-lg-2">Price</th>
+                  <th class="col-lg-2">Date</th>
+                  <th class="col-lg-2">Category</th>
+                  <th class="col-lg-4"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @all_recodes.each do |recode| %>
+                  <tr class="row" style="margin-bottom: 10px">
+                    <td class="col-lg-2"><%= recode.name %></td>
+                    <td class="col-lg-2"><%= recode.price %></td>
+                    <td class="col-lg-2"><%= recode.date %></td>
+                    <td class="col-lg-2"><%= Recode.categories.keys[recode.category] %></td>
+                    <td class="col-lg-2"><%= link_to 'Edit', edit_recode_path(recode), class: "btn btn-success btn-block" %></td>
+                    <td class="col-lg-2"><%= link_to 'Destroy', recode, method: :delete, class: "btn btn-danger btn-block" %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+
+            <%= paginate @all_recodes, param_name: 'page_1' %>
+
+            </table>
+          </div>
+          <div id="tab2" class="tab-pane container">
+            <table style="width: 90%;">
+              <thead>
+                <tr class="row" style="margin-bottom: 7px;">
+                  <th class="col-lg-2">Name</th>
+                  <th class="col-lg-2">Price</th>
+                  <th class="col-lg-2">Date</th>
+                  <th class="col-lg-2">Category</th>
+                  <th class="col-lg-4"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @this_year_recodes.each do |recode| %>
+                  <tr class="row" style="margin-bottom: 10px">
+                    <td class="col-lg-2"><%= recode.name %></td>
+                    <td class="col-lg-2"><%= recode.price %></td>
+                    <td class="col-lg-2"><%= recode.date %></td>
+                    <td class="col-lg-2"><%= Recode.categories.keys[recode.category] %></td>
+                    <td class="col-lg-2"><%= link_to 'Edit', edit_recode_path(recode), class: "btn btn-success btn-block" %></td>
+                    <td class="col-lg-2"><%= link_to 'Destroy', recode, method: :delete, class: "btn btn-danger btn-block" %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+
+              <%= paginate @this_year_recodes, param_name: 'page_2' %>
+
+            </table>
+          </div>
+          <div id="tab3" class="tab-pane container">
+            <table style="width: 90%;">
+              <thead>
+                <tr class="row" style="margin-bottom: 7px;">
+                  <th class="col-lg-2">Name</th>
+                  <th class="col-lg-2">Price</th>
+                  <th class="col-lg-2">Date</th>
+                  <th class="col-lg-2">Category</th>
+                  <th class="col-lg-4"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @this_month_recodes.each do |recode| %>
+                  <tr class="row" style="margin-bottom: 10px">
+                    <td class="col-lg-2"><%= recode.name %></td>
+                    <td class="col-lg-2"><%= recode.price %></td>
+                    <td class="col-lg-2"><%= recode.date %></td>
+                    <td class="col-lg-2"><%= Recode.categories.keys[recode.category] %></td>
+                    <td class="col-lg-2"><%= link_to 'Edit', edit_recode_path(recode), class: "btn btn-success btn-block" %></td>
+                    <td class="col-lg-2"><%= link_to 'Destroy', recode, method: :delete, class: "btn btn-danger btn-block" %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+
+              <%= paginate @this_month_recodes, param_name: 'page_3' %>
+
+            </table>
+          </div>
+          <div id="tab4" class="tab-pane container">
+            <table style="width: 90%;">
+              <thead>
+                <tr class="row" style="margin-bottom: 7px;">
+                  <th class="col-lg-2">Name</th>
+                  <th class="col-lg-2">Price</th>
+                  <th class="col-lg-2">Date</th>
+                  <th class="col-lg-2">Category</th>
+                  <th class="col-lg-4"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @this_week_recodes.each do |recode| %>
+                  <tr class="row" style="margin-bottom: 10px">
+                    <td class="col-lg-2"><%= recode.name %></td>
+                    <td class="col-lg-2"><%= recode.price %></td>
+                    <td class="col-lg-2"><%= recode.date %></td>
+                    <td class="col-lg-2"><%= Recode.categories.keys[recode.category] %></td>
+                    <td class="col-lg-2"><%= link_to 'Edit', edit_recode_path(recode), class: "btn btn-success btn-block" %></td>
+                    <td class="col-lg-2"><%= link_to 'Destroy', recode, method: :delete, class: "btn btn-danger btn-block" %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+
+              <%= paginate @this_week_recodes, param_name: 'page_4' %>
+
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- col9 -->
+
+  </div> <!-- row -->
+
+</div> <!-- container -->
