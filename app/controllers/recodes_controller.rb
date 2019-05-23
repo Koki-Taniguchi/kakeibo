@@ -3,7 +3,7 @@ class RecodesController < ApplicationController
   before_action :set_recode, only: [:edit, :update, :destroy]
 
   def edit
-    redirect_to user_path(current_user) if @recode.user_id != current_user
+    redirect_to user_path(current_user) if @recode.user_id != current_user.id
   end
 
   def create
@@ -21,7 +21,7 @@ class RecodesController < ApplicationController
     if @recode.update(recode_params)
       flash[:notice] = "Recode was successfully updated."
       redirect_to user_path(current_user)
-    else
+    els
       render :edit
     end
   end
