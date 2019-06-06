@@ -41,6 +41,6 @@ class RecodesController < ApplicationController
     end
 
     def recode_params
-      params.require(:recode).permit(:name, :date, :category, :price)
+      params.require(:recode).permit(:name, :category, :price).merge(date: params[:date])
     end
 end
