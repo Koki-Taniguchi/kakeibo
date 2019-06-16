@@ -1,5 +1,5 @@
 
-<%= form_with model: recode do |form| %>
+<%= form_for(recode) do |form| %>
   <% if recode.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(recode.errors.count, "error") %> prohibited this recode from being saved:</h2>
@@ -30,6 +30,11 @@
   <div class="field p-2">
     <%= form.label :category %><br>
     <%= form.select :category, Recode.categories %>
+  </div>
+
+  <div class="field p-2">
+    <%= form.label :BalanceOfPayments %><br>
+    <%= form.select :bop, Recode.bops %>
   </div>
 
   <div class="actions p-2">

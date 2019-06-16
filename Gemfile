@@ -40,6 +40,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'sqlite3'
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -68,6 +69,7 @@ gem 'bootstrap', '~> 4.3.1'
 gem 'devise'
 gem 'kaminari', '~> 0.17.0'
 gem 'kaminari-bootstrap', '~> 3.0.1'
+gem 'active_decorator'
 
 group :production do
   gem 'pg'

@@ -1,0 +1,71 @@
+<p id="notice" style="color: green; margin-left: 10px;"><%= flash[:notice] %></p>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-lg-3">
+      <h2>New recodes</h2>
+      <%= render 'recodes/form', recode: @recode %>
+    </div>
+
+    <div class="col-lg-9">
+      <h2>Recodes</h2>
+
+      <div class="p-3">
+        <div class="container">
+
+          <div class="search-box p-3">
+            <%= form_tag(recodes_path, :method => 'get') do %>
+              <%= label_tag :name_search %>
+              <span style="display: inline-block; width: 123px;"></span>
+              <%= label_tag :date_search %><br>
+              <%= text_field_tag :search %>
+              <span style="display: inline-block; width: 30px;"></span>
+              <%= date_field_tag :start %>
+              <%= label_tag :~ %>
+              <%= date_field_tag :last %>
+
+              <%= select_tag :bop, options_for_select(Recode.bops), :include_blank => true %>
+
+              <%= submit_tag 'Search', :name => nil, class: "btn btn-primary" %>
+            <% end %>
+          </div>
+
+          <table style="width: 90%;">
+            <thead>
+              <tr class="row" style="margin-bottom: 7px;">
+                <th class="col-lg-2">Name</th>
+                <th class="col-lg-2">Price</th>
+                <th class="col-lg-2">Date</th>
+                <th class="col-lg-2">Category</th>
+                <th class="col-lg-4"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @all_recodes.each do |recode| %>
+                <tr class="row" style="margin-bottom: 10px">
+                  <td class="col-lg-2"><%= recode.name %></td>
+                  <td class="col-lg-2"><%= recode.price_add_bop %></td>
+                  <td class="col-lg-2"><%= recode.date_format %></td>
+                  <td class="col-lg-2"><%= Recode.categories.keys[recode.category] %></td>
+                  <td class="col-lg-2"><%= link_to 'Edit', edit_recode_path(recode), class: "btn btn-success btn-block" %></td>
+                  <td class="col-lg-2"><%= link_to 'Destroy', recode, method: :delete, class: "btn btn-danger btn-block" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+
+          <%= paginate @all_recodes, param_name: 'page_1' %>
+
+          </table>
+
+          <div class="total_price">
+            <%= total_price(@all_recodes) %>
+          </div>
+        </div>
+      </div>
+    </div> <!-- col9 -->
+
+  </div> <!-- row -->
+
+</div> <!-- container -->

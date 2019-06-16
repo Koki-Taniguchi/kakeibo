@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_21_155225) do
+ActiveRecord::Schema.define(version: 2019_06_15_112747) do
 
   create_table "recodes", force: :cascade do |t|
     t.string "name"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2019_05_21_155225) do
     t.datetime "updated_at", null: false
     t.integer "price"
     t.integer "user_id"
+    t.integer "bop"
     t.index ["name", "date", "user_id"], name: "index_recodes_on_name_and_date_and_user_id"
   end
 
